@@ -1,0 +1,4 @@
+. env/bin/activate &&
+python /Users/csetuser/Dev/react_python/api/api.py &
+cd client/
+npm start &
