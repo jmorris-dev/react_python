@@ -6,7 +6,7 @@ function InfoCard() {
   const [image, setImage] = useState();
 
   const getImage = () => {
-    axios.get('http://localhost:5000/api')
+    axios.get('/api')
     .then(function (res) {
       console.log(res)
       const notSorted = (image) => {

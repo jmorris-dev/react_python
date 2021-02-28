@@ -1,18 +1,18 @@
 import pymongo
 from pymongo import MongoClient
-from os import environ
+import os
+import gridfs
 
+# make an .env file with MONGO_USER = "your_username" and MONGO_PWD = "your_password"
 
-mongo_user = environ.get('MONGO_USER')
-mongo_pwd = environ.get('MONGO_PWD')
+user = os.getenv("MONGO_USER")
+password = os.getenv("MONGO_PWD")
 
-environ.get
-
-client_uri = "mongodb+srv://{user}:{password}@cluster0.itr35.mongodb.net/myFirstDatabase?retryWrites=true&w=majority".format(user = mongo_user, password = mongo_pwd)
+client_uri = "mongodb+srv://{user}:{password}@cluster0.itr35.mongodb.net/myFirstDatabase?retryWrites=true&w=majority".format(user = user, password = password)
 
 client = MongoClient(client_uri)
 db = client.db
-
+fs = gridfs.GridFS(db)
 
 
 
