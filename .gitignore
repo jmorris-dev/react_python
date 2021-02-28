@@ -83,3 +83,5 @@ packages/react-devtools-scheduling-profiler/dist
 .env.local
 .env.development.local
 .env.test.local
+
+images/
