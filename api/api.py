@@ -1,4 +1,5 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, send_from_directory
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_restful import Resource, Api
 from db import db, fs
@@ -8,10 +9,12 @@ import os
 load_dotenv()
 
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
+CORS(app)
 api = Api(app)
 
-images = [{'image': None, 'title':'this is another title', 'description':'my description', 'tags':['test'], 'isSorted':False, 'passed': True },
-{'image': None, 'title':'this is a title', 'description':'my other description', 'tags':['test'], 'isSorted':False, 'passed': False }]
+images = [{'image': 'owl.png', 'title':'Owl', 'description':'An owl', 'tags':'bird, nocturnal', 'isSorted':False, 'passed':False },
+{'image': 'hawk.jpg', 'title':'Hawk', 'description':'A hawk', 'tags':'bird, diurnal', 'isSorted':True, 'passed':False },
+{'image': 'duck.jpeg', 'title':'Duck', 'description':'A duck', 'tags':'bird, waterfowl', 'isSorted':True, 'passed':False }]
 
 @app.route('/')
 def index():
@@ -36,6 +39,10 @@ class Image(Resource):
             meta = imageData)
 
             return 'success'
+
+@app.route('/images/<filename>')
+def show_bird(filename):
+    return send_from_directory('./images', filename)
 
 api.add_resource(Image, '/api')
 

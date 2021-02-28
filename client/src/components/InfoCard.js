@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const axios = require('axios');
+const img_style = {object_fit: "cover", width: "50%", height: "250px"}
 
-function InfoCard() {
-  const [image, setImage] = useState();
-
-  const getImage = () => {
-    axios.get('/api')
-    .then(function (res) {
-      console.log(res)
-      const notSorted = (image) => {
-        return image.isSorted === false;
-      }
-      const data = res.data.find(notSorted)
-      setImage(data);
-    })
-  }
-
-  useEffect(()=>{
-    getImage()
-  }, [])
-
+function InfoCard({image}) {
   return (
-    // <InfoCard image={image} />
     <div>
         {image ?
           <>
-          <p>title: {image.title}</p>
-          <p>description: {image.description}</p>
-          <p>tags: {image.tags}</p>
-          <p>isSorted: {image.isSorted.toString()}</p> 
-          <p>passed: {image.passed.toString()}</p>
+          <img style={img_style} src={"/images/" + image.image} alt={image.title}/>
+          <p>Title: {image.title}</p>
+          <p>Description: {image.description}</p>
+          <p>Tags: {image.tags}</p>
           </>
           : <p>loading...</p>
         }
