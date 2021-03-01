@@ -9,9 +9,9 @@ password = os.getenv("MONGO_PWD")
 
 client_uri = "mongodb+srv://{user}:{password}@cluster0.itr35.mongodb.net/myFirstDatabase?retryWrites=true&w=majority".format(user = user, password = password)
 
-client = MongoClient(client_uri)
-db = client.image_db
-image_col = db.images
+cluster = MongoClient(client_uri)
+db = cluster['react_python']
+image_collection = db['images']
 
 
 
