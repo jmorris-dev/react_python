@@ -2,9 +2,10 @@ from flask import Flask, request, Response, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_restful import Resource, Api
-from db import db, fs
+from db import image_col
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -22,7 +23,11 @@ def index():
 
 class Image(Resource):
     def get(self):
-        return (images)
+
+        # images = list(image_col.find({}))
+        # this should work but it doesnt
+        return images
+
     def post(self):
         if request.files['image']:
             file = request.files['image']
@@ -32,13 +37,11 @@ class Image(Resource):
             description = request.form.get('description')
             tags = request.form.get('tags')
 
-            imageData = {'title':title,'description':description,'tags':tags}
+            imageData = {'image':fname,'title':title,'description':description,'tags':tags}
 
-            image_id = fs.put(file,
-            filename=fname,
-            meta = imageData)
+            image_id = image_col.insert_one(imageData).inserted_id
 
-            return 'success'
+            return {'id': str(image_id)}
 
 @app.route('/images/<filename>')
 def show_bird(filename):

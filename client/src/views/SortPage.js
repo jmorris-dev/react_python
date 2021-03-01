@@ -9,7 +9,6 @@ const notSorted = (image) => {
 };
 
 
-
 const SortPage = () => {
 
     const [image, setImage] = useState();
@@ -22,12 +21,6 @@ const SortPage = () => {
         })
     }
 
-    const setPassFail = (image, bool) => {
-        if (image) {
-        setImage(image.isSorted = true);
-        setImage(image.passed = bool)
-        };
-    };
 
     useEffect(()=>{
         getImage()
@@ -37,8 +30,6 @@ const SortPage = () => {
             <div>
                 <Form />
                 <InfoCard image={image}/>
-                {/* <button onClick={setPassFail(image, true)}>Pass</button>
-                <button onClick={setPassFail(image, false)}>Fail</button> */}
             </div>
         )
     }
